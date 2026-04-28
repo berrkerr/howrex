@@ -2,6 +2,7 @@
 title: "var, let, and const in JavaScript Explained"
 slug: "variables"
 description: "Learn the difference between var, let, and const in JavaScript — scope, hoisting, reassignment, and which one to use."
+weight: 1
 section: "js"
 tags: ["javascript", "basics", "variables"]
 ---

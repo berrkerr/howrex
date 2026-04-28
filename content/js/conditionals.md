@@ -2,6 +2,7 @@
 title: "if, else, and switch in JavaScript"
 slug: "conditionals"
 description: "Learn how to control program flow in JavaScript using if, else if, else, switch statements, and the ternary operator."
+weight: 4
 section: "js"
 tags: ["javascript", "basics"]
 ---

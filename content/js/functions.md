@@ -2,6 +2,7 @@
 title: "JavaScript Functions Explained"
 slug: "functions"
 description: "Learn how to write and use functions in JavaScript — declarations, expressions, parameters, return values, and scope."
+weight: 6
 section: "js"
 tags: ["javascript", "functions"]
 ---

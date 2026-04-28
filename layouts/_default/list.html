@@ -16,15 +16,15 @@
   <div>
     <div class="slabel">Tutorials</div>
     <div class="alist">
-      {{ range $i, $page := .Pages }}
-      <a class="aitem" href="{{ $page.Permalink }}">
-        <div class="anum">{{ printf "%02d" (add $i 1) }}</div>
+      {{ range .Pages.ByWeight }}
+      <a class="aitem" href="{{ .Permalink }}">
+        <div class="anum">{{ printf "%02d" .Weight }}</div>
         <div>
-          {{ with $page.Params.tags }}
+          {{ with .Params.tags }}
           <div class="atag">{{ index . 0 }}</div>
           {{ end }}
-          <div class="atitle">{{ $page.Title }}</div>
-          {{ with $page.Description }}
+          <div class="atitle">{{ .Title }}</div>
+          {{ with .Description }}
           <div class="adesc">{{ . }}</div>
           {{ end }}
         </div>

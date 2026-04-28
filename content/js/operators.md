@@ -2,6 +2,7 @@
 title: "JavaScript Operators Explained"
 slug: "operators"
 description: "A complete guide to JavaScript operators — arithmetic, comparison, logical, assignment, ternary, nullish coalescing, and more."
+weight: 3
 section: "js"
 tags: ["javascript", "basics"]
 ---

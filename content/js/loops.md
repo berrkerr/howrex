@@ -2,6 +2,7 @@
 title: "JavaScript Loops Explained"
 slug: "loops"
 description: "Learn how to use for, while, do/while, for...of, and for...in loops in JavaScript with practical examples."
+weight: 5
 section: "js"
 tags: ["javascript", "basics"]
 ---

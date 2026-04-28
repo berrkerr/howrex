@@ -2,6 +2,7 @@
 title: "JavaScript Data Types Explained"
 slug: "data-types"
 description: "Learn the eight data types in JavaScript — primitives vs objects, typeof, type coercion, and common mistakes."
+weight: 2
 section: "js"
 tags: ["javascript", "basics"]
 ---
