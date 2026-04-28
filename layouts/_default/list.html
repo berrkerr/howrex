@@ -1,0 +1,37 @@
+{{ define "main" }}
+
+<div class="hub-hdr">
+  <div class="hub-hdr-in">
+    <div class="bc">
+      <a href="/">Home</a>
+      <span class="bc-sep">›</span>
+      <span style="color:#fff">{{ .Title }}</span>
+    </div>
+    <h1 class="hub-title">{{ .Title }}</h1>
+    <p class="hub-sub">{{ .Pages.Len }} tutorials</p>
+  </div>
+</div>
+
+<div class="hub-body">
+  <div>
+    <div class="slabel">Tutorials</div>
+    <div class="alist">
+      {{ range $i, $page := .Pages }}
+      <a class="aitem" href="{{ $page.Permalink }}">
+        <div class="anum">{{ printf "%02d" (add $i 1) }}</div>
+        <div>
+          {{ with $page.Params.tags }}
+          <div class="atag">{{ index . 0 }}</div>
+          {{ end }}
+          <div class="atitle">{{ $page.Title }}</div>
+          {{ with $page.Description }}
+          <div class="adesc">{{ . }}</div>
+          {{ end }}
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+{{ end }}

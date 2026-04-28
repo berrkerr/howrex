@@ -1,0 +1,22 @@
+baseURL = "https://howrex.com"
+languageCode = "en-us"
+title = "howrex"
+enableRobotsTXT = true
+
+[markup]
+  [markup.highlight]
+    style = "dracula"
+    noClasses = false
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[permalinks]
+  js         = "/js/:slug"
+  python     = "/python/:slug"
+  rust       = "/rust/:slug"
+  go         = "/go/:slug"
+  cloud      = "/cloud/:slug"
+  security   = "/security/:slug"
+  networking = "/networking/:slug"
+  ai         = "/ai/:slug"
+  linux      = "/linux/:slug"

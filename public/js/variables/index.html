@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>var, let, and const in JavaScript Explained — howrex</title>
+  <meta name="description" content="Learn the difference between var, let, and const in JavaScript — scope, hoisting, reassignment, and which one to use." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-in">
+      <a class="logo" href="/">how<em>rex</em></a>
+      <div class="nsearch">
+        <span class="si">⌕</span>
+        <input placeholder="Search tutorials..." />
+      </div>
+      <div class="nlinks">
+        <a href="/js">Tech</a>
+        <a href="/finance">Finance</a>
+        <a href="/diy">DIY</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+
+<article>
+  <div class="art-hdr">
+    <div class="bc">
+      <a href="/">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="/js">JS</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-curr">var, let, and const in JavaScript Explained</span>
+    </div>
+
+    
+    <div class="pill-row">
+      
+      <span class="pill">javascript</span>
+      
+      <span class="pill">basics</span>
+      
+      <span class="pill">variables</span>
+      
+    </div>
+    
+
+    <h1 class="art-title">var, let, and const in JavaScript Explained</h1>
+
+    
+    <p class="art-intro">Learn the difference between var, let, and const in JavaScript — scope, hoisting, reassignment, and which one to use.</p>
+    
+  </div>
+
+  <div class="art-body">
+    <p>JavaScript gives you three ways to declare a variable: <code>var</code>, <code>let</code>, and <code>const</code>. They look similar but behave differently — and using the wrong one is the source of countless bugs.</p>
+<p>Here&rsquo;s the short answer:</p>
+<ul>
+<li>Use <strong><code>const</code></strong> by default.</li>
+<li>Use <strong><code>let</code></strong> when you need to reassign the variable.</li>
+<li>Avoid <strong><code>var</code></strong> in modern code.</li>
+</ul>
+<p>The rest of this article explains why.</p>
+<h2 id="the-three-keywords-at-a-glance">The three keywords at a glance</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span>   <span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>     <span class="c1">// old, function-scoped
+</span></span></span><span class="line"><span class="cl"><span class="kd">let</span>   <span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>     <span class="c1">// modern, block-scoped, reassignable
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>     <span class="c1">// modern, block-scoped, cannot be reassigned
+</span></span></span></code></pre></div><p>All three create a variable. The differences are in <strong>scope</strong>, <strong>hoisting</strong>, and whether you can <strong>reassign</strong> the value.</p>
+<h2 id="var-the-legacy-way">var: the legacy way</h2>
+<p><code>var</code> was the only way to declare variables until ES6 (2015). It&rsquo;s still valid JavaScript, but it has quirks that lead to bugs.</p>
+<h3 id="var-is-function-scoped">var is function-scoped</h3>
+<p>A <code>var</code> variable is visible everywhere inside the function it was declared in — even outside the block where you created it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 10  ← still accessible
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This surprises people. The <code>if</code> block doesn&rsquo;t create a new scope for <code>var</code>.</p>
+<h3 id="var-can-be-redeclared">var can be redeclared</h3>
+<p>You can declare the same <code>var</code> variable twice in the same scope without an error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Alice&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Bob&#34;</span><span class="p">;</span>   <span class="c1">// no error
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>  <span class="c1">// &#34;Bob&#34;
+</span></span></span></code></pre></div><p>In a large file this is a recipe for accidentally overwriting your own variables.</p>
+<h3 id="var-is-hoisted-and-initialized-as-undefined">var is hoisted and initialized as undefined</h3>
+<p><code>var</code> declarations are moved to the top of their scope at runtime. The variable exists before the line you wrote it on, but its value is <code>undefined</code> until the assignment runs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// undefined  (not an error)
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Alice&#34;</span><span class="p">;</span>
+</span></span></code></pre></div><p>This is called <strong>hoisting</strong>. It looks harmless but it hides bugs.</p>
+<h2 id="let-block-scoped-and-reassignable">let: block-scoped and reassignable</h2>
+<p><code>let</code> was added in ES6 to fix <code>var</code>&rsquo;s problems. It&rsquo;s <strong>block-scoped</strong>, meaning it only exists inside the <code>{ ... }</code> where it was declared.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// ReferenceError: x is not defined
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You can reassign a <code>let</code> variable, but you can&rsquo;t redeclare it in the same scope:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">count</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>          <span class="c1">// OK — reassignment
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>      <span class="c1">// SyntaxError: already declared
+</span></span></span></code></pre></div><h2 id="const-block-scoped-and-locked">const: block-scoped and locked</h2>
+<p><code>const</code> works exactly like <code>let</code>, with one extra rule: <strong>you cannot reassign the variable</strong> after it&rsquo;s created.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">PI</span> <span class="o">=</span> <span class="mf">3.14159</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">PI</span> <span class="o">=</span> <span class="mf">3.14</span><span class="p">;</span>   <span class="c1">// TypeError: Assignment to constant variable
+</span></span></span></code></pre></div><p>You also can&rsquo;t declare a <code>const</code> without a value:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">x</span><span class="p">;</span>     <span class="c1">// SyntaxError: Missing initializer
+</span></span></span></code></pre></div><h3 id="const-objects-and-arrays-are-not-frozen">const objects and arrays are not frozen</h3>
+<p>This is the part that trips people up. <code>const</code> prevents <strong>reassignment of the variable</strong>, not <strong>modification of its contents</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Alice&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">user</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&#34;Bob&#34;</span><span class="p">;</span>        <span class="c1">// OK — you&#39;re not reassigning user
+</span></span></span><span class="line"><span class="cl"><span class="nx">user</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>            <span class="c1">// OK — adding a property is fine
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>        <span class="c1">// { name: &#34;Bob&#34;, age: 30 }
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">user</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Carol&#34;</span> <span class="p">};</span> <span class="c1">// TypeError — this would reassign
+</span></span></span></code></pre></div><p>Same for arrays:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">items</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">items</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>    <span class="c1">// OK — mutating the array
+</span></span></span><span class="line"><span class="cl"><span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span><span class="p">;</span>    <span class="c1">// OK — changing an element
+</span></span></span><span class="line"><span class="cl"><span class="nx">items</span> <span class="o">=</span> <span class="p">[];</span>       <span class="c1">// TypeError — reassignment
+</span></span></span></code></pre></div><p>If you need a truly immutable object, use <code>Object.freeze()</code>.</p>
+<h2 id="the-temporal-dead-zone">The Temporal Dead Zone</h2>
+<p><code>let</code> and <code>const</code> are also hoisted, but unlike <code>var</code>, you cannot use them before the declaration line. The period between the start of the scope and the declaration is called the <strong>Temporal Dead Zone (TDZ)</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// ReferenceError: Cannot access &#39;x&#39; before initialization
+</span></span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span></code></pre></div><p>This is a feature, not a bug. It catches mistakes that <code>var</code> would silently allow.</p>
+<h2 id="which-one-should-you-use">Which one should you use?</h2>
+<p>A simple decision rule that covers 95% of cases:</p>
+<ol>
+<li><strong>Start with <code>const</code>.</strong> Most variables don&rsquo;t need to be reassigned.</li>
+<li><strong>Switch to <code>let</code></strong> the moment you actually need to reassign.</li>
+<li><strong>Never use <code>var</code></strong> in new code unless you&rsquo;re maintaining a legacy codebase.</li>
+</ol>
+<p>Examples:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">items</span>   <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>         <span class="c1">// never reassigned, use const
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">user</span>    <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Alice&#34;</span> <span class="p">};</span> <span class="c1">// the reference doesn&#39;t change
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                     <span class="c1">// reassigned in a loop
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">count</span> <span class="o">=</span> <span class="nx">count</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>                 <span class="c1">// reassigned later
+</span></span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">result</span> <span class="o">=</span> <span class="nx">computeValue</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="common-mistakes">Common mistakes</h2>
+<p><strong>Using <code>var</code> in a loop and expecting block scope:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Logs: 3, 3, 3   ← because var is function-scoped
+</span></span></span></code></pre></div><p>Use <code>let</code> to fix this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Logs: 0, 1, 2
+</span></span></span></code></pre></div><p><strong>Trying to mutate a constant primitive:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">age</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">age</span><span class="o">++</span><span class="p">;</span>   <span class="c1">// TypeError
+</span></span></span></code></pre></div><p>Primitives (numbers, strings, booleans) cannot be mutated, so <code>const</code> locks them completely.</p>
+<p><strong>Assuming <code>const</code> deep-freezes objects:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">debug</span><span class="o">:</span> <span class="kc">false</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nx">config</span><span class="p">.</span><span class="nx">debug</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  <span class="c1">// works — const doesn&#39;t prevent this
+</span></span></span></code></pre></div><p>Use <code>Object.freeze(config)</code> if you need real immutability.</p>
+<h2 id="summary">Summary</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>var</th>
+          <th>let</th>
+          <th>const</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Scope</td>
+          <td>Function</td>
+          <td>Block</td>
+          <td>Block</td>
+      </tr>
+      <tr>
+          <td>Reassignable</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Redeclarable</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Hoisted</td>
+          <td>Yes (undefined)</td>
+          <td>Yes (TDZ)</td>
+          <td>Yes (TDZ)</td>
+      </tr>
+      <tr>
+          <td>Must initialize</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Yes</td>
+      </tr>
+  </tbody>
+</table>
+<p>In modern JavaScript: default to <code>const</code>, reach for <code>let</code> when you need to reassign, and leave <code>var</code> in 2015.</p>
+
+  </div>
+</article>
+
+
+  </main>
+
+  <footer class="footer">
+    <p>2026 howrex.com · Clear tutorials for everyone</p>
+  </footer>
+
+</body>
+</html>

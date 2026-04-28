@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Basics on howrex</title>
+    <link>http://localhost:1313/tags/basics/</link>
+    <description>Recent content in Basics on howrex</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/tags/basics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>var, let, and const in JavaScript Explained</title>
+      <link>http://localhost:1313/js/variables/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/js/variables/</guid>
+      <description>&lt;p&gt;JavaScript gives you three ways to declare a variable: &lt;code&gt;var&lt;/code&gt;, &lt;code&gt;let&lt;/code&gt;, and &lt;code&gt;const&lt;/code&gt;. They look similar but behave differently — and using the wrong one is the source of countless bugs.&lt;/p&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the short answer:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Use &lt;strong&gt;&lt;code&gt;const&lt;/code&gt;&lt;/strong&gt; by default.&lt;/li&gt;&#xA;&lt;li&gt;Use &lt;strong&gt;&lt;code&gt;let&lt;/code&gt;&lt;/strong&gt; when you need to reassign the variable.&lt;/li&gt;&#xA;&lt;li&gt;Avoid &lt;strong&gt;&lt;code&gt;var&lt;/code&gt;&lt;/strong&gt; in modern code.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The rest of this article explains why.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-three-keywords-at-a-glance&#34;&gt;The three keywords at a glance&lt;/h2&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt;   &lt;span class=&#34;nx&#34;&gt;age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// old, function-scoped&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;   &lt;span class=&#34;nx&#34;&gt;age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// modern, block-scoped, reassignable&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// modern, block-scoped, cannot be reassigned&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;All three create a variable. The differences are in &lt;strong&gt;scope&lt;/strong&gt;, &lt;strong&gt;hoisting&lt;/strong&gt;, and whether you can &lt;strong&gt;reassign&lt;/strong&gt; the value.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

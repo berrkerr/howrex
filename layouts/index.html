@@ -1,0 +1,38 @@
+{{ define "main" }}
+
+<div class="hero">
+  <div class="hero-in">
+    <h1>How to do<br /><em>anything.</em></h1>
+    <p>Clear, practical tutorials on tech, finance, home, and more.</p>
+    <div class="hs">
+      <input placeholder="e.g. how to use JavaScript promises..." />
+      <button>SEARCH</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="slabel">Tech</div>
+  <div class="grid">
+    {{ $sections := slice
+      (dict "icon" "🟨" "title" "JavaScript" "slug" "js"         "desc" "DOM, async, ES6+, frameworks")
+      (dict "icon" "🐍" "title" "Python"     "slug" "python"     "desc" "Scripts, data, automation, ML")
+      (dict "icon" "🦀" "title" "Rust"       "slug" "rust"       "desc" "Ownership, memory safety, systems")
+      (dict "icon" "🐹" "title" "Go"         "slug" "go"         "desc" "Goroutines, APIs, microservices")
+      (dict "icon" "☁️" "title" "Cloud"      "slug" "cloud"      "desc" "AWS, GCP, Azure, serverless")
+      (dict "icon" "🔒" "title" "Security"   "slug" "security"   "desc" "VPNs, 2FA, encryption, pen testing")
+      (dict "icon" "🌐" "title" "Networking" "slug" "networking" "desc" "DNS, TCP/IP, subnetting, routing")
+      (dict "icon" "🤖" "title" "AI"         "slug" "ai"         "desc" "Prompting, fine-tuning, APIs, RAG")
+      (dict "icon" "🐧" "title" "Linux"      "slug" "linux"      "desc" "CLI, sysadmin, bash, permissions")
+    }}
+    {{ range $sections }}
+    <a class="card" href="/{{ .slug }}">
+      <div class="card-icon">{{ .icon }}</div>
+      <div class="card-title">{{ .title }}</div>
+      <div class="card-desc">{{ .desc }}</div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+
+{{ end }}

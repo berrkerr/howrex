@@ -1,0 +1,33 @@
+{{ define "main" }}
+
+<article>
+  <div class="art-hdr">
+    <div class="bc">
+      <a href="/">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="/{{ .Section }}">{{ .Section | upper }}</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-curr">{{ .Title }}</span>
+    </div>
+
+    {{ with .Params.tags }}
+    <div class="pill-row">
+      {{ range . }}
+      <span class="pill">{{ . }}</span>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <h1 class="art-title">{{ .Title }}</h1>
+
+    {{ with .Description }}
+    <p class="art-intro">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  <div class="art-body">
+    {{ .Content }}
+  </div>
+</article>
+
+{{ end }}
