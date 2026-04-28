@@ -29,40 +29,42 @@
     {{ .Content }}
   </div>
 
-  <!-- Prev / Next navigation -->
   {{ $pages := .CurrentSection.Pages.ByWeight }}
   {{ $current := . }}
   {{ $total := len $pages }}
 
-  {{ range $i, $page := $pages }}
-    {{ if eq $page.Permalink $current.Permalink }}
-      <nav class="prevnext">
-        {{ if gt $i 0 }}
-          {{ $prev := index $pages (sub $i 1) }}
-          <a class="pn-prev" href="{{ $prev.Permalink }}">
-            <span class="pn-label">← Previous</span>
-            <span class="pn-title">{{ $prev.Title }}</span>
-          </a>
-        {{ else }}
-          <div></div>
-        {{ end }}
+  <div class="pn-wrap">
+    {{ range $i, $page := $pages }}
+      {{ if eq $page.Permalink $current.Permalink }}
 
-        {{ if lt $i (sub $total 1) }}
-          {{ $next := index $pages (add $i 1) }}
-          <a class="pn-next" href="{{ $next.Permalink }}">
-            <span class="pn-label">Next →</span>
-            <span class="pn-title">{{ $next.Title }}</span>
-          </a>
-        {{ else }}
-          <div></div>
-        {{ end }}
-      </nav>
+        <div class="prevnext">
+          {{ if gt $i 0 }}
+            {{ $prev := index $pages (sub $i 1) }}
+            <a class="pn-card pn-prev" href="{{ $prev.Permalink }}">
+              <span class="pn-label">← Previous</span>
+              <span class="pn-title">{{ $prev.Title }}</span>
+            </a>
+          {{ else }}
+            <div class="pn-empty"></div>
+          {{ end }}
+
+          {{ if lt $i (sub $total 1) }}
+            {{ $next := index $pages (add $i 1) }}
+            <a class="pn-card pn-next" href="{{ $next.Permalink }}">
+              <span class="pn-label">Next →</span>
+              <span class="pn-title">{{ $next.Title }}</span>
+            </a>
+          {{ else }}
+            <div class="pn-empty"></div>
+          {{ end }}
+        </div>
+
+      {{ end }}
     {{ end }}
-  {{ end }}
 
-  <!-- Back to hub -->
-  <div class="back-hub">
-    <a href="/{{ .Section }}">← All {{ .Section | upper }} tutorials</a>
+    <div class="back-hub">
+      <a href="/{{ .Section }}">← All {{ .Section | upper }} tutorials</a>
+    </div>
   </div>
 
 </article>
